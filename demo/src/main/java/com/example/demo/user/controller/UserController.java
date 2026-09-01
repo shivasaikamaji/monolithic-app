@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.user.entity.User;
 import com.example.demo.user.service.UserService;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -27,7 +26,7 @@ public class UserController {
     // GET all users
     @GetMapping
     public List<User> getUsers() {
-        return userService.getUsers();
+        return userService.getAllUsers();
     }
 
     // GET user by ID

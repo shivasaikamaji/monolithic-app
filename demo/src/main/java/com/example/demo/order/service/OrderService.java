@@ -16,39 +16,42 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    // Create order
+    // CREATE ORDER
     public Order createOrder(Order order) {
         return orderRepository.save(order);
     }
 
-    // Get all orders
-    public List<Order> getOrders() {
+    // GET ALL ORDERS
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    // Get order by ID
+    // GET ORDER BY ID
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id).orElse(null);
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
     }
 
-    // Update order
+    // UPDATE ORDER
     public Order updateOrder(Long id, Order order) {
 
-        Order existingOrder = orderRepository.findById(id).orElse(null);
+        Order existingOrder = orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
 
-        if (existingOrder == null) {
-            return null;
-        }
-
-        existingOrder.setUserId(order.getUserId());
-        existingOrder.setProductId(order.getProductId());
+        existingOrder.setProductName(order.getProductName());
         existingOrder.setQuantity(order.getQuantity());
+        existingOrder.setPrice(order.getPrice());
 
         return orderRepository.save(existingOrder);
     }
 
-    // Delete order
+    // DELETE ORDER
     public void deleteOrder(Long id) {
+
+        if (!orderRepository.existsById(id)) {
+            throw new RuntimeException("Order not found with id: " + id);
+        }
+
         orderRepository.deleteById(id);
     }
 }

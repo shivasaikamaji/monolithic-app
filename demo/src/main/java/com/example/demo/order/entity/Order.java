@@ -1,33 +1,33 @@
 package com.example.demo.order.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "orders")
+@Table(name="orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    private String productName;
 
-    private Long productId;
+    private int quantity;
 
-    private Integer quantity;
+    private double price;
 
     public Order() {
     }
 
-    public Order(Long id, Long userId, Long productId, Integer quantity) {
+    public Order(Long id, String productName, int quantity, double price) {
         this.id = id;
-        this.userId = userId;
-        this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public Long getId() {
@@ -38,27 +38,27 @@ public class Order {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
