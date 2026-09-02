@@ -1,4 +1,4 @@
-package com.example.demo.product;
+package com.example.demo.product.controller;
 
 import java.util.List;
 

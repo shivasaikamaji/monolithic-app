@@ -1,33 +1,36 @@
 package com.example.demo.order.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private Long userId;
+
+    private Long productId;
 
     private int quantity;
 
-    private double price;
+    private Double totalPrice;
 
     public Order() {
     }
 
-    public Order(Long id, String productName, int quantity, double price) {
+    public Order(Long id, Long userId, Long productId, int quantity, Double totalPrice) {
         this.id = id;
-        this.productName = productName;
+        this.userId = userId;
+        this.productId = productId;
         this.quantity = quantity;
-        this.price = price;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -38,12 +41,20 @@ public class Order {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -54,11 +65,11 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
