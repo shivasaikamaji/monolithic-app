@@ -21,30 +21,30 @@ public class OrderService {
     }
 
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        return orderRepository.findById(id).orElse(null);
     }
 
     public Order createOrder(Order order) {
         return orderRepository.save(order);
     }
 
-    public Order updateOrder(Long id, Order orderDetails) {
+    public Order updateOrder(Long id, Order order) {
 
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        Order existingOrder = orderRepository.findById(id).orElse(null);
 
-        order.setUserId(orderDetails.getUserId());
-        order.setProductId(orderDetails.getProductId());
-        order.setQuantity(orderDetails.getQuantity());
+        if (existingOrder == null) {
+            return null;
+        }
 
-        return orderRepository.save(order);
+        existingOrder.setUserId(order.getUserId());
+        existingOrder.setProductId(order.getProductId());
+        existingOrder.setQuantity(order.getQuantity());
+        existingOrder.setTotalPrice(order.getTotalPrice());
+
+        return orderRepository.save(existingOrder);
     }
 
     public void deleteOrder(Long id) {
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
-
-        orderRepository.delete(order);
+        orderRepository.deleteById(id);
     }
 }
